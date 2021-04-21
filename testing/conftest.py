@@ -5,6 +5,8 @@
 # @File : conftest.py
 # @Software: PyCharm
 
+# 数据共享文件，公共模块放在这个文件下
+
 import pytest
 
 
