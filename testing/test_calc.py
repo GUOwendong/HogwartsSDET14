@@ -34,7 +34,7 @@ def testcase1():
 
 
 class TestCalc:
-    # 类级别
+    # 类级别 setup_class和teardown_class分别在每个类的前后分别执行
     def setup_class(self):
         self.cal = Calculator()
         print("类级别 setup")
@@ -50,9 +50,25 @@ class TestCalc:
         print("teardown")
 
     @pytest.mark.add
-    def test_add(self):
+    @pytest.mark.parametrize('a,b,result', [
+        (1, 1, 2),
+        (2, 3, 5),
+        (2, 2, 4),
+        (100, 100, 200),
+        (0.1, 0.1, 0.2),
+        (-1, -1, -2)
+    ],
+                             ids=['int1',
+                                  'int2',
+                                  'int3',
+                                  'bignum',
+                                  'float',
+                                  'negative'
+                                  ]
+                             )
+    def test_add(self, a, b, result):
         # cal = Calculator()
-        assert 2 == self.cal.add(1, 1)
+        assert result == self.cal.add(a, b)
 
     @pytest.mark.add
     def test_add1(self):
