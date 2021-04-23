@@ -10,9 +10,11 @@
 import pytest
 
 
-@pytest.fixture()
-def login():
+@pytest.fixture(autouse=True, params=['user1', 'user2', 'user3'])  # scope执行域的大小（session，module，function）
+# session整个项目只执行一次，module每个模块也就是每个.py文件，执行一次
+def login(request):
     print("登录方法")
+    print(request.param)
     # yield激活 fixture teardown方法
     yield ['username', 'password']
     print('teardown')
